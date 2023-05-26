@@ -1,0 +1,74 @@
+add new group (-g <id> might be useful but unsure. id should be where the group id starts from make them in intervals like 1500 for the first group 2000 for the 2nd and so on)
+sudo groupadd -g <id> <name>
+
+add new user?
+sudo adduser <user>
+*type sudo password*
+*enter password for the new user*
+
+change group directory? (unsure if necessery)
+sudo chgrp <groupName> <path/path>
+
+add user to group (-g) and change home dir(-d)
+useradd -g <groupName> -d <directoryPath/makesCustomHomeDirectory> <userName>
+
+add a user with no home directory(if required)
+useradd -M <user>
+
+check for users (will show home directory)
+cat etc/passwd
+
+check for groups
+cat etc/group
+
+------------
+
+POSSIBLE subnetting (unsure)!!! calculating subnets - bottom of file.
+check nets
+route -n
+
+add new route
+route add -net <destination(if nothing works try 192.168.7.0)> netmask <255.255.255.0(if this doesn't work try 255.255.0.0 or 255.0.0.0)> gw <gateway(destination from route -n command but slightly altered 192.168.1.0 -> 192.168.1.2)> dev <Iface from route -n>
+
+check if everything worked
+ping -c <numberOfPacketsToSend(try 3) <ip> (if 192.168.7.0 was used and gateway is 198.168.1.somenumber then try with this ip: 192.168.7.1)
+if everything has worked this message should be seen: 3 packets transmitted, 3 received, 0% packet loss, time x
+(3 transmitted if 3 was written in ping command. Important info is the "0% packet loss". if packet loss is present something might've gone wrong)
+if this doesn't work for some reason one solution might be to type: ssh <gateway> ' grep -i ipv4 /etc/sysct1.conf'
+look for the "net.ipv4.ip_forward=1" and if ip_forward=0 then: ssh <gateway> ' echo 1 > /proc/sys/net/ipv4/ip_forward'
+try to ping again
+keep in mind: ping ip (or your subnet ip) should be your destination with a changed last bit (i think... not sure). if nothing works try to find another solution or hope for 3
+
+IF THERES TROUBLE HERE IS A LINK IF YOUTUBE IS ALLOWED!!! https://www.youtube.com/watch?v=qA4hJ2gk9fw
+
+------------
+
+NOTHING from this part is 100% accurate. it is only here if you have no other clues on what to do!!! keep in mind
+Changing the default gateway. maybe has to be done when signed as a user or maybe not.
+
+change default gateway
+sudo route add default gw <gatewayIp> <Iface from route -n>
+
+possible info (not from a video so i don't have an example or any knowledge whether this can help or not)
+cat etc/network/interfaces
+if this doesn't work try to open it with nano (you can also change it with nano):
+sudo nano etc/network/interfaces
+
+-------------
+
+HOW TO CALCULATE SUBNET IP ADDRESSES!!!
+let's say your mask is 255.255.255.0 - this means you have 8 host bits (the zero) and you know how bits go (1st bit is 2^0 2nd is 2^1 etc.)
+to know how many bits you need you also need to know how many subnets you want to create. here's a cheat sheet for when you have 8 host bits:
+128 64 32 16 8 4 2 1 - values of bits
+256 128 64 32 16 8 4 2 - how many hosts you can create with said bits
+here's an example. let's say you need to create 4 subnets. you look at the 2nd row of numbers and you find the closes number that is equal to OR GREATER than the subnets. it cannot be lower. you see the "4" in the second row which is the 2nd number in the row (from left to right). this means you would need 2 bits to create 4 subnets.
+to find your subnet mask then you would take those 2 bits as the ones with highest value (the first 2 numbers from right to left in the 1st row) which is 128 and 64. you then add them and you get 192. this means that the mask for 4 subnets is 255.255.255.192
+another example. create 5 subnets. look at the 2nd row and see that the closest number to 5 that's also equal or greater than it is 8. 8 is the 3rd number. this means you need 3 bits. first 3 bits right to left from 1st row are 128, 64 and 32. add them and you get 224. mask is 255.255.255.224
+Now how to find how to split those 4 subnets into the different ip addresses: let's go with the 4 subnets example. you need 2 bits. you look at the 1st row and the last bit you need (from right to left). since we need 2 bits that last bit has a value of 64. that is the number you need to separate the addresses. lets say your ip address is 192.168.1.0. first availabe subnet addresses are 192.168.1.0 + the 64(the last needed bit value) so -> 192.168.1.0 to 192.168.1.63 are the first addresses. then 192.168.1.64 to 192.168.1.127 and so on.
+another example with the 5 subnets and same ip address. you look at the 1st row, knowing that you need 3 bits. the last bit's value is 32. addresses are: 192.168.1.0 to 192.168.1.31 then 192.168.1.32 to 192.168.1.63 and so on (doing this 5 times since we need 5 subnets. no need to go all the way to 255).
+
+
+-------------
+
+Let's hope everything goes well. Good luck if you are using this and you are not me. Fnaf is always watching.
+

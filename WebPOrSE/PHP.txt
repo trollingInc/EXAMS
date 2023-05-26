@@ -1,0 +1,39 @@
+if php is required and we are unlucky, this is how to connect to mysql database:
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "<databaseName>";
+$conn = new mysqli($servername, $username, $password, $dbname)
+//check if successful
+if(conn->connect_error){
+	die("Connection failed");
+}
+
+//extracting from the html form
+if(isset($_POST['lsubmit-btn'])){
+	$usname = $_POST['<name/id of form field>']; //in my template this would be "lusername" for the login
+	$pass = $_POST['lpassword'];
+
+	//inserting into the database (signup)
+	$sql = "INSERT INTO <table>(<column1>, <column2>...) VALUES('$usname', '$pass'...)";
+	//check if query succeeded not sure if this is how you do it but you can try if you want to
+	if ($conn->query($sql) === TRUE){
+		echo "Success";
+	}
+	else{
+		echo "Failed";
+	}
+
+	//checking from the database (login)
+	$sql = "SELECT * FROM <table> WHERE <column> = '$usname' AND <column> = '$pass'";
+	$result = mysqli_query($conn, $sql);
+	$row = mysqli_fetch_array($result, MYSQLI_ASSOC); //not sure what this is for and whether it's needed or not
+	$count = mysqli_num_rows($result);
+	if($count == 1){ //login is valid
+		//do something when logged in successfully
+	}
+	else{ //login is invalid
+		echo "Invalid username or password";
+	}
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="NavStyles.css">
+    <link rel="stylesheet" href="LogInStyles.css">
+    
+</head>
+<body style="margin: 0; height: 100vh; width: 100vw;">
+    <div class="header text-style">
+        Logo or website name
+    </div>
+    <div class="nav-container">
+        <a href="" class="nav-boxes text-style">Page 1</a>
+        <a href="" class="nav-boxes text-style">Page 2</a>
+        <!-- Make one of these for every page/view you have. maybe delete this comment when done. -->
+    </div>
+    <!-- End of navigation bar -->
+
+    <div class="login-signup-container">
+        <!-- Login-->
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <label class="text-style method-label">Log-in</label>
+            <div class="login-signup">
+                <label for="lusername" class="input-label text-style">Username:</label>
+                <input type="text" name="lusername" id="lusername" class="inputs text-style">
+                <label for="lpassword" class="input-label text-style">Password:</label>
+                <input type="password" name="lpassword" id="lpassword" class="inputs text-style">
+                <button class="submit-btn text-style" id="lsubmit-btn">Submit</button>
+            </div>
+        </div>
+
+        <!-- sign up-->
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <label class="text-style method-label">Sign-up</label>
+            <div class="login-signup">
+                <label for="semail" class="input-label text-style">Email:</label>
+                <input type="text" name="semail" id="semail" class="inputs text-style">
+                <label for="susername" class="input-label text-style">Username:</label>
+                <input type="text" name="susername" id="susername" class="inputs text-style">
+                <label for="spassword" class="input-label text-style">Password:</label>
+                <input type="password" name="spassword" id="spassword" class="inputs text-style">
+                <label for="scpassword" class="input-label text-style">Confirm password:</label>
+                <input type="password" name="scpassword" id="scpassword" class="inputs text-style">
+                <button class="submit-btn text-style" id="ssubmit-btn">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

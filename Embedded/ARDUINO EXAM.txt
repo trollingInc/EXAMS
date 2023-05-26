@@ -1,0 +1,22 @@
+GND goes to the minus. After plugging in the other cable with a pin, the number of said pin is what you need to use in the code. If something doesn't work try a different pin that has or hasn't the "~" sign.
+
+----------
+CODE
+
+const int <pin> = <analogPinNumber>;
+// do it for every pin you use
+int state = 0; //used for saving button result
+
+void setup() { // runs only ONCE
+	Serial.begin(9600); //idk what this does but we follow thr tutorial. if something doesn't work maybe just comment this out.
+	pinMode.(<pinNumber>, OUTPUT/INPUT); // defines the pin. type either OUTPUT or INPUT, not the two at once.
+}
+
+void loop() {
+	digitalWrite(<pinNumber>, HIGH/LOW); // if HIGH then led will light up if LOW it will not.
+	delay(<time>); // delays execution
+	state = digitalRead(<pinNumber>); // if button is pressed state will be true or HIGH and if not it'll be low.
+	if (state == HIGH){
+		digitalWrite(<pinNumber>, LOW);
+	}
+}
